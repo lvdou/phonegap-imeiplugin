@@ -11,21 +11,30 @@ import android.telephony.TelephonyManager;
 import android.content.Context;
 import android.util.Log;
 
-public class imeiplugin extends CordovaPlugin {
+public class androidIMEI extends CordovaPlugin {
 	@Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if (action.equals("getImei")) {
-            this.DeviceImeiNumber(callbackContext);
+        try {
+            if (action.equals("getImei")) {
+                this.DeviceImeiNumber(callbackContext);
+            }
             return true;
+        } catch (Exception e){
+            callbackContext.error(e.getMessage());
+            return false;
         }
-        return false;
     }
 
     public void DeviceImeiNumber(CallbackContext callbackContext) {
-        Context context=this.cordova.getActivity().getApplicationContext();
+    	try {
+            Context context=this.cordova.getActivity().getApplicationContext();
 
-        TelephonyManager tManager = (TelephonyManager)cordova.getActivity().getSystemService(context.TELEPHONY_SERVICE);
-        callbackContext.success(tManager.getDeviceId());
+            TelephonyManager tManager = (TelephonyManager)cordova.getActivity().getSystemService(context.TELEPHONY_SERVICE);
+            callbackContext.success(tManager.getDeviceId());
+    	} catch (Exception e){
+            callbackContext.error(e.getMessage());
+            return false;
+        }
     }
 
     private void getImei(String message, CallbackContext callbackContext) {
