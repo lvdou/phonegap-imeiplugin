@@ -11,7 +11,7 @@ import android.telephony.TelephonyManager;
 import android.content.Context;
 import android.util.Log;
 
-public class androidIMEI extends CordovaPlugin {
+public class imeiplugin extends CordovaPlugin {
 	@Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         try {
